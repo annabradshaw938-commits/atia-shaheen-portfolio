@@ -375,8 +375,9 @@ function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a
           href="#"
-          className="text-xl font-bold tracking-tight"
-          style={{ color: "var(--text-nav)" }}
+          className={`text-xl font-bold tracking-tight transition-colors ${
+            scrolled ? "text-foreground" : "text-white"
+          }`}
         >
           Atia<span className="text-purple-primary">.</span>SEO
         </a>
@@ -386,7 +387,11 @@ function Navbar() {
             <button
               key={item.href}
               onClick={() => scrollTo(item.href)}
-              className="text-sm text-purple-primary/70 hover:text-purple-primary transition-colors"
+              className={`text-sm font-medium transition-colors hover:text-purple-primary ${
+                scrolled
+                  ? "text-foreground/70"
+                  : "text-white/90"
+              }`}
             >
               {item.label}
             </button>
@@ -400,7 +405,11 @@ function Navbar() {
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="text-purple-primary hover:bg-purple-primary/10"
+              className={`transition-colors ${
+                scrolled
+                  ? "text-purple-primary hover:bg-purple-primary/10"
+                  : "text-white hover:bg-white/10"
+              }`}
             >
               {theme === "dark" ? (
                 <Sun className="size-4" />
@@ -418,7 +427,11 @@ function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden text-purple-primary"
+            className={`md:hidden transition-colors ${
+              scrolled
+                ? "text-purple-primary hover:bg-purple-primary/10"
+                : "text-white hover:bg-white/10"
+            }`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Menu"
           >
@@ -444,7 +457,7 @@ function Navbar() {
                 <button
                   key={item.href}
                   onClick={() => scrollTo(item.href)}
-                  className="text-left py-2 text-purple-primary/70 hover:text-purple-primary transition-colors"
+                  className="text-left py-2 text-foreground/70 hover:text-purple-primary transition-colors font-medium"
                 >
                   {item.label}
                 </button>
@@ -511,13 +524,13 @@ function HeroSection() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.2}>
-            <p className="mt-4 text-xl sm:text-2xl font-medium text-purple-light/80">
+            <p className="mt-4 text-xl sm:text-2xl font-medium text-white/80">
               AI-Powered Search Optimization for Contractors
             </p>
           </AnimatedSection>
 
           <AnimatedSection delay={0.3}>
-            <p className="mt-6 text-lg text-purple-light/60 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-6 text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
               Helping home renovation, junk removal, garage door repair, and
               plumbing businesses rank on Google Maps, Local Pack, and AI
               Overviews across USA, UAE, KSA, and Pakistan.
@@ -597,7 +610,7 @@ function AboutSection() {
               </Badge>
             </AnimatedSection>
             <AnimatedSection delay={0.1}>
-              <h2 className="text-3xl sm:text-4xl font-bold leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-bold leading-tight text-foreground">
                 Local SEO for Home Renovation
               </h2>
             </AnimatedSection>
@@ -652,7 +665,7 @@ function AboutSection() {
                     className="flex items-center gap-2 p-3 rounded-lg bg-purple-primary/5 border border-purple-primary/10"
                   >
                     <skill.icon className="size-4 text-purple-primary shrink-0" />
-                    <span className="text-sm font-medium">{skill.label}</span>
+                    <span className="text-sm font-medium text-foreground">{skill.label}</span>
                   </div>
                 ))}
               </div>
@@ -674,7 +687,7 @@ function ServicesSection() {
           <Badge className="mb-4 bg-purple-primary/10 text-purple-primary">
             Services
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
             SEO Services Built for Home Renovation
           </h2>
           <p className="mt-4 text-muted-foreground">
@@ -692,7 +705,7 @@ function ServicesSection() {
                   <div className="p-3 rounded-xl bg-purple-primary/10 w-fit mb-4 group-hover:bg-purple-primary transition-colors duration-300">
                     <service.icon className="size-6 text-purple-primary group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <h3 className="text-lg font-semibold leading-snug mb-2">
+                  <h3 className="text-lg font-semibold leading-snug mb-2 text-foreground">
                     {service.title}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">
@@ -702,7 +715,7 @@ function ServicesSection() {
                     {service.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-center gap-2 text-sm"
+                        className="flex items-center gap-2 text-sm text-foreground/80"
                       >
                         <CheckCircle2 className="size-4 text-teal-accent shrink-0" />
                         <span>{feature}</span>
@@ -729,7 +742,7 @@ function PortfolioSection() {
           <Badge className="mb-4 bg-purple-primary/10 text-purple-primary">
             Case Studies
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
             Real Results for Home Service Businesses
           </h2>
           <p className="mt-4 text-muted-foreground">
@@ -753,7 +766,7 @@ function PortfolioSection() {
                       {item.category}
                     </Badge>
                   </div>
-                  <h3 className="text-lg font-semibold leading-snug mb-2">
+                  <h3 className="text-lg font-semibold leading-snug mb-2 text-foreground">
                     {item.title}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">
@@ -838,7 +851,7 @@ function ArticlesSection() {
           <Badge className="mb-4 bg-purple-primary/10 text-purple-primary">
             Articles
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
             SEO Insights for Home Renovation
           </h2>
           <p className="mt-4 text-muted-foreground">
@@ -884,7 +897,7 @@ function TestimonialsSection() {
           <Badge className="mb-4 bg-purple-primary/10 text-purple-primary">
             Testimonials
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
             What Contractors Say
           </h2>
           <p className="mt-4 text-muted-foreground">
@@ -914,7 +927,7 @@ function TestimonialsSection() {
                       {t.name.charAt(0)}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold">{t.name}</p>
+                      <p className="text-sm font-semibold text-foreground">{t.name}</p>
                       <p className="text-xs text-muted-foreground">
                         {t.role}, {t.location}
                       </p>
@@ -940,7 +953,7 @@ function ContactSection() {
           <Badge className="mb-4 bg-purple-primary/10 text-purple-primary">
             Contact
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
             Ready to Rank Your Home Service Business?
           </h2>
           <p className="mt-4 text-muted-foreground">
@@ -957,7 +970,7 @@ function ContactSection() {
                   <MessageCircle className="size-5 text-purple-primary" />
                 </div>
                 <div>
-                  <p className="font-semibold">WhatsApp</p>
+                  <p className="font-semibold text-foreground">WhatsApp</p>
                   <p className="text-sm text-muted-foreground">
                     0310-7599528
                   </p>
@@ -972,7 +985,7 @@ function ContactSection() {
                   <Mail className="size-5 text-purple-primary" />
                 </div>
                 <div>
-                  <p className="font-semibold">Email</p>
+                  <p className="font-semibold text-foreground">Email</p>
                   <p className="text-sm text-muted-foreground">
                     attiashaheenofficial@gmail.com
                   </p>
@@ -987,7 +1000,7 @@ function ContactSection() {
                   <MapPin className="size-5 text-purple-primary" />
                 </div>
                 <div>
-                  <p className="font-semibold">Location</p>
+                  <p className="font-semibold text-foreground">Location</p>
                   <p className="text-sm text-muted-foreground">
                     Islamabad, Pakistan
                   </p>
@@ -1002,7 +1015,7 @@ function ContactSection() {
                   <Linkedin className="size-5 text-purple-primary" />
                 </div>
                 <div>
-                  <p className="font-semibold">LinkedIn</p>
+                  <p className="font-semibold text-foreground">LinkedIn</p>
                   <p className="text-sm text-muted-foreground">
                     Connect professionally
                   </p>
@@ -1021,19 +1034,19 @@ function ContactSection() {
                   className="space-y-4"
                 >
                   <div>
-                    <label className="text-sm font-medium mb-1.5 block">
+                    <label className="text-sm font-medium mb-1.5 block text-foreground">
                       Name
                     </label>
                     <Input placeholder="Your full name" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-1.5 block">
+                    <label className="text-sm font-medium mb-1.5 block text-foreground">
                       Email
                     </label>
                     <Input type="email" placeholder="you@company.com" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-1.5 block">
+                    <label className="text-sm font-medium mb-1.5 block text-foreground">
                       Message
                     </label>
                     <Textarea

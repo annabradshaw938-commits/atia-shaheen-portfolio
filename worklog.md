@@ -51,3 +51,29 @@ Stage Summary:
 - Home renovation niche content preserved
 - Dark/light mode toggle working
 - AI chatbot functioning correctly
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Fix header fonts not visible + fix all dark/light mode color issues
+
+Work Log:
+- Fixed Navbar: Logo text now uses `text-white` when on hero (not scrolled) and `text-foreground` when scrolled
+- Fixed Navbar: Nav links use `text-white/90` on hero and `text-foreground/70` when scrolled
+- Fixed Navbar: Theme toggle and hamburger menu change between white/purple based on scroll state
+- Fixed Navbar: Mobile menu links use `text-foreground/70` for proper dark mode support
+- Fixed Hero section: Changed `text-purple-light/80` and `text-purple-light/60` to `text-white/80` and `text-white/60`
+- Added `text-foreground` to ALL section headings (Services, Portfolio, Articles, Testimonials, Contact)
+- Added `text-foreground` to all h3 card titles (Services, Portfolio)
+- Added `text-foreground` to contact section labels (WhatsApp, Email, Location, LinkedIn)
+- Added `text-foreground` to form labels (Name, Email, Message)
+- Added `text-foreground` to testimonial names
+- Added `text-foreground/80` to service feature list items
+- Added `text-foreground` to skill labels
+- Total: 23 elements now use `text-foreground` for proper dark/light mode visibility
+
+Stage Summary:
+- Header fonts fully visible in both dark and light mode
+- All section headings, card titles, form labels, and text elements work in both modes
+- Navbar properly transitions between white (hero) and foreground (scrolled) colors
+- Build passes successfully
