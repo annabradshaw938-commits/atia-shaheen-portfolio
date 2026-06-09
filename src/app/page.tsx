@@ -379,7 +379,7 @@ function Navbar() {
             scrolled ? "text-foreground" : "text-white"
           }`}
         >
-          Atia<span className="text-purple-primary">.</span>SEO
+          Atia<span className="text-purple-primary"> Shaheen</span>
         </a>
 
         <div className="hidden md:flex items-center gap-6">
@@ -642,7 +642,7 @@ function AboutSection() {
             <AnimatedSection delay={0.2}>
               <div className="relative aspect-square max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-xl animate-pulse-glow">
                 <img
-                  src="/profile.jpg"
+                  src="/profile.png"
                   alt="Atia Shaheen — Local SEO Specialist for Home Renovation"
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -1086,7 +1086,7 @@ function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="sm:col-span-2">
             <h3 className="text-xl font-bold mb-3">
-              Atia<span className="text-gold-accent">.</span>SEO
+              Atia<span className="text-gold-accent"> Shaheen</span>
             </h3>
             <p className="text-sm text-[var(--text-footer-muted)] max-w-md leading-relaxed">
               Local SEO and AI SEO specialist for home renovation contractors.
