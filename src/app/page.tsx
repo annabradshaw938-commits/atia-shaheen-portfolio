@@ -940,6 +940,7 @@ function ContactSection() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -947,24 +948,38 @@ function ContactSection() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSending(true);
 
-    // Build WhatsApp message with form data
-    const whatsappMessage = `Hi Atia! I'd like to get in touch.%0A%0A*Name:* ${encodeURIComponent(formData.name)}%0A*Email:* ${encodeURIComponent(formData.email)}%0A*Message:* ${encodeURIComponent(formData.message)}`;
-    const whatsappUrl = `https://wa.me/923107599528?text=${whatsappMessage}`;
+    try {
+      // Send form data to email via FormSubmit.co (free, no backend needed)
+      const res = await fetch("https://formsubmit.co/ajax/attiashaheenofficial@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `New Contact Form Submission from ${formData.name}`,
+        }),
+      });
 
-    // Open WhatsApp in a new tab
-    window.open(whatsappUrl, "_blank");
-
-    // Show success state
-    setSubmitted(true);
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormData({ name: "", email: "", message: "" });
-      setSubmitted(false);
-    }, 3000);
+      if (res.ok) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setSubmitted(false), 4000);
+      } else {
+        alert("Something went wrong. Please try again or contact via WhatsApp.");
+      }
+    } catch {
+      alert("Network error. Please try again or contact via WhatsApp.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -1057,7 +1072,7 @@ function ContactSection() {
                       Message Sent!
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Your message has been sent via WhatsApp. Atia will get back to you soon!
+                      Your message has been sent! Atia will get back to you soon.
                     </p>
                   </div>
                 ) : (
@@ -1102,14 +1117,15 @@ function ContactSection() {
                     </div>
                     <Button
                       type="submit"
-                      className="w-full bg-orange-cta hover:bg-orange-cta/90 text-white rounded-full shadow-lg shadow-orange-cta/30"
+                      disabled={sending}
+                      className="w-full bg-orange-cta hover:bg-orange-cta/90 text-white rounded-full shadow-lg shadow-orange-cta/30 disabled:opacity-60 disabled:cursor-not-allowed"
                       size="lg"
                     >
                       <Send className="size-4 mr-2" />
-                      Send Message
+                      {sending ? "Sending..." : "Send Message"}
                     </Button>
                     <p className="text-xs text-center text-muted-foreground mt-2">
-                      Your message will be sent via WhatsApp
+                      We&apos;ll get back to you within 24 hours
                     </p>
                   </form>
                 )}
