@@ -1046,17 +1046,22 @@ function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-xl bg-purple-primary/10">
+              <a
+                href="https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 group cursor-pointer"
+              >
+                <div className="p-3 rounded-xl bg-purple-primary/10 group-hover:bg-purple-primary/20 transition-colors">
                   <Linkedin className="size-5 text-purple-primary" />
                 </div>
                 <div>
-                  <p className="font-semibold text-foreground">LinkedIn</p>
+                  <p className="font-semibold text-foreground group-hover:text-purple-primary transition-colors">LinkedIn</p>
                   <p className="text-sm text-muted-foreground">
                     Connect professionally
                   </p>
                 </div>
-              </div>
+              </a>
             </div>
           </AnimatedSection>
 
@@ -1191,7 +1196,7 @@ function Footer() {
                 <MapPin className="size-3" /> Islamabad, Pakistan
               </li>
               <li className="flex items-center gap-2">
-                <Linkedin className="size-3" /> LinkedIn
+                <Linkedin className="size-3" /> <a href="https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
               </li>
             </ul>
             <p className="text-xs text-[var(--text-footer-muted)] mt-4">
