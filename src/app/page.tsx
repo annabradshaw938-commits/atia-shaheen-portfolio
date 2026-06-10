@@ -9,8 +9,6 @@ import {
   TrendingUp,
   Users,
   Award,
-  ChevronDown,
-  ChevronUp,
   Menu,
   X,
   MessageCircle,
@@ -18,19 +16,15 @@ import {
   ArrowUp,
   ExternalLink,
   CheckCircle2,
-  BarChart3,
   Globe,
   Link2,
-  FileText,
   Target,
   Zap,
-  Phone,
   Mail,
   Linkedin,
   Briefcase,
   Brain,
   Sparkles,
-  Cpu,
   Eye,
   Sun,
   Moon,
@@ -940,6 +934,39 @@ function TestimonialsSection() {
 /* ─────────────── Contact Section ─────────────── */
 
 function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Build WhatsApp message with form data
+    const whatsappMessage = `Hi Atia! I'd like to get in touch.%0A%0A*Name:* ${encodeURIComponent(formData.name)}%0A*Email:* ${encodeURIComponent(formData.email)}%0A*Message:* ${encodeURIComponent(formData.message)}`;
+    const whatsappUrl = `https://wa.me/923107599528?text=${whatsappMessage}`;
+
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, "_blank");
+
+    // Show success state
+    setSubmitted(true);
+
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setFormData({ name: "", email: "", message: "" });
+      setSubmitted(false);
+    }, 3000);
+  };
+
   return (
     <section id="contact" className="py-20 sm:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1021,42 +1048,71 @@ function ContactSection() {
           <AnimatedSection delay={0.2}>
             <Card className="border-purple-primary/10 bg-card">
               <CardContent className="pt-6">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                  }}
-                  className="space-y-4"
-                >
-                  <div>
-                    <label className="text-sm font-medium mb-1.5 block text-foreground">
-                      Name
-                    </label>
-                    <Input placeholder="Your full name" />
+                {submitted ? (
+                  <div className="flex flex-col items-center justify-center py-12 text-center">
+                    <div className="size-16 rounded-full bg-teal-accent/10 flex items-center justify-center mb-4">
+                      <CheckCircle2 className="size-8 text-teal-accent" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      Message Sent!
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Your message has been sent via WhatsApp. Atia will get back to you soon!
+                    </p>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium mb-1.5 block text-foreground">
-                      Email
-                    </label>
-                    <Input type="email" placeholder="you@company.com" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-1.5 block text-foreground">
-                      Message
-                    </label>
-                    <Textarea
-                      placeholder="Tell me about your business and SEO goals..."
-                      rows={4}
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-orange-cta hover:bg-orange-cta/90 text-white rounded-full shadow-lg shadow-orange-cta/30"
-                    size="lg"
-                  >
-                    <Send className="size-4 mr-2" />
-                    Send Message
-                  </Button>
-                </form>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium mb-1.5 block text-foreground">
+                        Name
+                      </label>
+                      <Input
+                        name="name"
+                        placeholder="Your full name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-1.5 block text-foreground">
+                        Email
+                      </label>
+                      <Input
+                        name="email"
+                        type="email"
+                        placeholder="you@company.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-1.5 block text-foreground">
+                        Message
+                      </label>
+                      <Textarea
+                        name="message"
+                        placeholder="Tell me about your business and SEO goals..."
+                        rows={4}
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                    <Button
+                      type="submit"
+                      className="w-full bg-orange-cta hover:bg-orange-cta/90 text-white rounded-full shadow-lg shadow-orange-cta/30"
+                      size="lg"
+                    >
+                      <Send className="size-4 mr-2" />
+                      Send Message
+                    </Button>
+                    <p className="text-xs text-center text-muted-foreground mt-2">
+                      Your message will be sent via WhatsApp
+                    </p>
+                  </form>
+                )}
               </CardContent>
             </Card>
           </AnimatedSection>
