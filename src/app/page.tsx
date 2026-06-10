@@ -276,31 +276,37 @@ const articles = [
     title: "How Home Renovation Contractors Can Rank on Google Maps in 2026",
     tag: "Local SEO",
     date: "May 2026",
+    url: "https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/recent-activity/articles/",
   },
   {
     title: "AI Overviews for Home Services: What Contractors Need to Know",
     tag: "AI SEO",
     date: "Jan 2026",
+    url: "https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/recent-activity/articles/",
   },
   {
     title: "Junk Removal SEO: How to Get More Calls from Google",
     tag: "Industry SEO",
     date: "Jun 2025",
+    url: "https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/recent-activity/articles/",
   },
   {
     title: "Garage Door Repair Marketing: From Invisible to #1 on Maps",
     tag: "Case Study",
     date: "May 2025",
+    url: "https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/recent-activity/articles/",
   },
   {
     title: "Why 'Near Me' Searches Matter for Home Service Businesses",
     tag: "Local SEO",
     date: "May 2025",
+    url: "https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/recent-activity/articles/",
   },
   {
     title: "Plumbing SEO Guide: Rank Higher and Get More Emergency Calls",
     tag: "Industry SEO",
     date: "Mar 2025",
+    url: "https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/recent-activity/articles/",
   },
 ];
 
@@ -851,22 +857,66 @@ function ArticlesSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article, i) => (
             <AnimatedSection key={article.title} delay={i * 0.08}>
-              <Card className="h-full hover:shadow-lg transition-all duration-300 cursor-pointer group border-purple-primary/10 hover:border-purple-primary/30 bg-card">
-                <CardContent className="pt-6">
-                  <Badge className="bg-purple-primary/10 text-purple-primary text-xs mb-3">
-                    {article.tag}
-                  </Badge>
-                  <h3 className="text-base font-semibold leading-snug group-hover:text-purple-primary transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    {article.date}
-                  </p>
-                </CardContent>
-              </Card>
+              <a
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-full"
+              >
+                <Card className="h-full hover:shadow-lg transition-all duration-300 cursor-pointer group border-purple-primary/10 hover:border-purple-primary/30 bg-card">
+                  <CardContent className="pt-6">
+                    <Badge className="bg-purple-primary/10 text-purple-primary text-xs mb-3">
+                      {article.tag}
+                    </Badge>
+                    <h3 className="text-base font-semibold leading-snug group-hover:text-purple-primary transition-colors">
+                      {article.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {article.date}
+                    </p>
+                    <p className="text-xs text-purple-primary font-medium mt-3 group-hover:underline flex items-center gap-1">
+                      Read on LinkedIn <ExternalLink className="size-3" />
+                    </p>
+                  </CardContent>
+                </Card>
+              </a>
             </AnimatedSection>
           ))}
         </div>
+
+        <AnimatedSection delay={0.3}>
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button
+              size="lg"
+              className="text-base px-8 bg-[#0077B5] hover:bg-[#0077B5]/90 text-white rounded-full shadow-lg"
+              asChild
+            >
+              <a
+                href="https://www.linkedin.com/in/atia-shaheen-local-seo-specialist/recent-activity/articles/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="size-4 mr-2" />
+                Read More on LinkedIn
+              </a>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-base px-8 border-purple-primary text-purple-primary hover:bg-purple-primary hover:text-white rounded-full"
+              asChild
+            >
+              <a
+                href="https://www.linkedin.com/newsletters/elevate-your-seo-7020667754085003264/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Sparkles className="size-4 mr-2" />
+                Subscribe to My Newsletter
+              </a>
+            </Button>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
