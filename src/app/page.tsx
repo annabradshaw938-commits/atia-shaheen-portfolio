@@ -334,12 +334,6 @@ const testimonials = [
   },
 ];
 
-const quickReplies = [
-  "Home Service SEO",
-  "AI Overview Optimization",
-  "Free SEO Audit",
-  "WhatsApp",
-];
 
 /* ─────────────── Navbar ─────────────── */
 
@@ -1156,194 +1150,7 @@ function Footer() {
   );
 }
 
-/* ─────────────── Chatbot Widget ─────────────── */
 
-function ChatbotWidget() {
-  const [chatOpen, setChatOpen] = useState(false);
-  const [chatMessages, setChatMessages] = useState<
-    { role: "user" | "bot"; text: string }[]
-  >([]);
-  const [chatInput, setChatInput] = useState("");
-  const [chatLoading, setChatLoading] = useState(false);
-  const chatEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatMessages]);
-
-  const openChatWithGreeting = () => {
-    setChatOpen(true);
-    if (chatMessages.length === 0) {
-      setChatMessages([
-        {
-          role: "bot",
-          text: "Hello! 👋 Welcome! I specialize in Local SEO for Home Renovation businesses — Junk Removal, Garage Door Repair, Plumbing, and more. How can I help you today?",
-        },
-      ]);
-    }
-  };
-
-  const sendChat = async (text?: string) => {
-    const msg = text || chatInput.trim();
-    if (!msg || chatLoading) return;
-    setChatInput("");
-    setChatMessages((prev) => [...prev, { role: "user", text: msg }]);
-    setChatLoading(true);
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: msg }),
-      });
-      const data = await res.json();
-      setChatMessages((prev) => [
-        ...prev,
-        { role: "bot", text: data.reply || "Sorry, something went wrong." },
-      ]);
-    } catch {
-      setChatMessages((prev) => [
-        ...prev,
-        {
-          role: "bot",
-          text: "Connection error. Please try again or contact Atia on WhatsApp at 0310-7599528!",
-        },
-      ]);
-    }
-    setChatLoading(false);
-  };
-
-  return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <AnimatePresence>
-        {chatOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="mb-4 w-80 sm:w-96 rounded-2xl shadow-2xl border border-purple-primary/20 bg-[var(--bg-chatbot)] overflow-hidden"
-          >
-            {/* Chat header */}
-            <div className="bg-gradient-to-r from-purple-primary to-purple-secondary p-4 text-white">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Brain className="size-5" />
-                  <div>
-                    <h4 className="font-semibold text-sm">Atia&apos;s AI Assistant</h4>
-                    <p className="text-xs text-white/70">
-                      ✨ AI-Powered • Bilingual
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:bg-white/20 h-8 w-8"
-                  onClick={() => setChatOpen(false)}
-                >
-                  <X className="size-4" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Chat messages */}
-            <div className="h-72 overflow-y-auto p-4 space-y-3">
-              {chatMessages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`flex ${
-                    msg.role === "user" ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${
-                      msg.role === "user"
-                        ? "bg-purple-primary text-white rounded-br-sm"
-                        : "bg-[var(--bg-chatbot-bot)] border border-purple-primary/10 rounded-bl-sm"
-                    }`}
-                  >
-                    {msg.text}
-                  </div>
-                </div>
-              ))}
-              {chatLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-[var(--bg-chatbot-bot)] border border-purple-primary/10 rounded-2xl rounded-bl-sm px-4 py-3 flex gap-1">
-                    <span className="size-2 bg-purple-primary/50 rounded-full animate-bounce" />
-                    <span
-                      className="size-2 bg-purple-primary/50 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.1s" }}
-                    />
-                    <span
-                      className="size-2 bg-purple-primary/50 rounded-full animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    />
-                  </div>
-                </div>
-              )}
-              <div ref={chatEndRef} />
-            </div>
-
-            {/* Quick replies */}
-            {chatMessages.length <= 1 && (
-              <div className="px-4 pb-2 flex flex-wrap gap-2">
-                {quickReplies.map((reply) => (
-                  <Button
-                    key={reply}
-                    variant="outline"
-                    size="sm"
-                    className="text-xs border-purple-primary/20 text-purple-primary hover:bg-purple-primary/10 rounded-full"
-                    onClick={() => sendChat(reply)}
-                  >
-                    {reply}
-                  </Button>
-                ))}
-              </div>
-            )}
-
-            {/* Chat input */}
-            <div className="p-3 border-t border-purple-primary/10">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  sendChat();
-                }}
-                className="flex gap-2"
-              >
-                <Input
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Type your message..."
-                  className="flex-1 text-sm border-purple-primary/20 focus:border-purple-primary"
-                />
-                <Button
-                  type="submit"
-                  size="icon"
-                  className="bg-purple-primary hover:bg-purple-secondary text-white rounded-full"
-                  disabled={chatLoading}
-                >
-                  <Send className="size-4" />
-                </Button>
-              </form>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Chat toggle button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={openChatWithGreeting}
-        className="bg-gradient-to-r from-purple-primary to-purple-secondary text-white p-4 rounded-full shadow-lg shadow-purple-primary/30 hover:shadow-xl hover:shadow-purple-primary/40 transition-shadow relative"
-        aria-label="Open chat"
-      >
-        <Brain className="size-6" />
-        {/* Green online indicator */}
-        <span className="absolute top-0 right-0 size-3 bg-green-500 rounded-full border-2 border-white" />
-      </motion.button>
-    </div>
-  );
-}
 
 /* ─────────────── Scroll to Top ─────────────── */
 
@@ -1392,8 +1199,29 @@ export default function Home() {
         <ContactSection />
       </main>
       <Footer />
-      <ChatbotWidget />
+      
       <ScrollToTop />
+      <WhatsAppButton />
+    </div>
+  );
+}
+
+/* ─────────────── WhatsApp Floating Button ─────────────── */
+
+function WhatsAppButton() {
+  return (
+    <div className="fixed bottom-6 right-6 z-50">
+      <motion.a
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        href="https://wa.me/923107599528"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="size-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg shadow-green-500/30 flex items-center justify-center transition-colors"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle className="size-6" />
+      </motion.a>
     </div>
   );
 }
