@@ -857,29 +857,19 @@ function ArticlesSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article, i) => (
             <AnimatedSection key={article.title} delay={i * 0.08}>
-              <a
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block h-full"
-              >
-                <Card className="h-full hover:shadow-lg transition-all duration-300 cursor-pointer group border-purple-primary/10 hover:border-purple-primary/30 bg-card">
-                  <CardContent className="pt-6">
-                    <Badge className="bg-purple-primary/10 text-purple-primary text-xs mb-3">
-                      {article.tag}
-                    </Badge>
-                    <h3 className="text-base font-semibold leading-snug group-hover:text-purple-primary transition-colors">
-                      {article.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      {article.date}
-                    </p>
-                    <p className="text-xs text-purple-primary font-medium mt-3 group-hover:underline flex items-center gap-1">
-                      Read on LinkedIn <ExternalLink className="size-3" />
-                    </p>
-                  </CardContent>
-                </Card>
-              </a>
+              <Card className="h-full border-purple-primary/10 bg-card">
+                <CardContent className="pt-6">
+                  <Badge className="bg-purple-primary/10 text-purple-primary text-xs mb-3">
+                    {article.tag}
+                  </Badge>
+                  <h3 className="text-base font-semibold leading-snug text-foreground">
+                    {article.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    {article.date}
+                  </p>
+                </CardContent>
+              </Card>
             </AnimatedSection>
           ))}
         </div>
